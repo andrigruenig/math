@@ -62,3 +62,4 @@ Deno.test("multiply reduces result automatically", () => {
 
   assertEquals(left.toString(), "3/2");
 });
+

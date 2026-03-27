@@ -23,6 +23,22 @@ export class Circle implements Shape {
     private radius: number,
   ) {}
 
+  north(): Point2D {
+    return new Point2D(this.center.x, this.center.y + this.radius);
+  }
+
+  east(): Point2D {
+    return new Point2D(this.center.x + this.radius, this.center.y);
+  }
+
+  south(): Point2D {
+    return new Point2D(this.center.x, this.center.y - this.radius);
+  }
+
+  west(): Point2D {
+    return new Point2D(this.center.x - this.radius, this.center.y);
+  }
+
   circumference(): number {
     return 2 * Math.PI * this.radius;
   }
