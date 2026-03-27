@@ -63,7 +63,16 @@ export class Circle implements Shape {
     return Math.PI * this.radius ** 2;
   }
 
-  encompasses(_other: Shape): boolean {
+  encompasses(other: Shape): boolean {
+    if (other instanceof Rectangle) {
+      for (const corner of other.corners()) {
+        if (!(this.center.distanceTo(corner) < this.radius)) {
+          return false;
+        }
+      }
+      return true;
+    }
+
     return false;
   }
 
@@ -108,6 +117,14 @@ export class Rectangle implements Shape {
     }
 
     return false;
+  }
+
+  corners(): Point2D[] {
+    const a = new Point2D(this.bottomLeft.x, this.bottomLeft.y);
+    const b = new Point2D(this.topRight.x, this.bottomLeft.y);
+    const c = new Point2D(this.topRight.x, this.topRight.y);
+    const d = new Point2D(this.bottomLeft.x, this.topRight.y);
+    return [a, b, c, d];
   }
 
   diagonal(): number {

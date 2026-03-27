@@ -69,3 +69,24 @@ Deno.test("rectangle does not encompass circle when center is outside", () => {
 
   assertEquals(rectangle.encompasses(circle), false);
 });
+
+Deno.test("circle encompasses rectangle when A, B, C, D are inside", () => {
+  const circle = new Circle(new Point2D(5, 5), 5);
+  const rectangle = new Rectangle(new Point2D(3, 3), new Point2D(7, 7));
+
+  assertEquals(circle.encompasses(rectangle), true);
+});
+
+Deno.test("circle does not encompass rectangle when one corner is outside", () => {
+  const circle = new Circle(new Point2D(5, 5), 5);
+  const rectangle = new Rectangle(new Point2D(1, 1), new Point2D(9, 9));
+
+  assertEquals(circle.encompasses(rectangle), false);
+});
+
+Deno.test("circle does not encompass rectangle when corner lies on boundary", () => {
+  const circle = new Circle(new Point2D(5, 5), 5);
+  const rectangle = new Rectangle(new Point2D(5, 5), new Point2D(10, 5));
+
+  assertEquals(circle.encompasses(rectangle), false);
+});
