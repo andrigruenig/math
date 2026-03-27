@@ -1,5 +1,5 @@
 import { assertAlmostEquals, assertEquals } from "@std/assert";
-import { Circle, Point2D } from "./geometry.ts";
+import { Circle, Point2D, Rectangle } from "./geometry.ts";
 
 Deno.test("circumference of a circle with radius 5 is roughtly 31.416", () => {
   // Given
@@ -47,4 +47,25 @@ Deno.test("point N is not between N and S on y-axis", () => {
   const n = circle.north();
 
   assertEquals(n.isBetweenY(circle.north(), circle.south()), false);
+});
+
+Deno.test("rectangle encompasses circle when M, N, E, S, W are inside", () => {
+  const rectangle = new Rectangle(new Point2D(0, 0), new Point2D(10, 10));
+  const circle = new Circle(new Point2D(5, 5), 4);
+
+  assertEquals(rectangle.encompasses(circle), true);
+});
+
+Deno.test("rectangle does not encompass circle when radius reaches outside", () => {
+  const rectangle = new Rectangle(new Point2D(0, 0), new Point2D(10, 10));
+  const circle = new Circle(new Point2D(8, 5), 3);
+
+  assertEquals(rectangle.encompasses(circle), false);
+});
+
+Deno.test("rectangle does not encompass circle when center is outside", () => {
+  const rectangle = new Rectangle(new Point2D(0, 0), new Point2D(10, 10));
+  const circle = new Circle(new Point2D(11, 5), 1);
+
+  assertEquals(rectangle.encompasses(circle), false);
 });

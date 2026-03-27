@@ -39,6 +39,10 @@ export class Circle implements Shape {
     return new Point2D(this.center.x, this.center.y + this.radius);
   }
 
+  centerPoint(): Point2D {
+    return new Point2D(this.center.x, this.center.y);
+  }
+
   east(): Point2D {
     return new Point2D(this.center.x + this.radius, this.center.y);
   }
@@ -82,7 +86,27 @@ export class Rectangle implements Shape {
     return this.width() * this.height();
   }
 
-  encompasses(_other: Shape): boolean {
+  encompasses(other: Shape): boolean {
+    if (other instanceof Circle) {
+      const pointsToCheck = [
+        other.centerPoint(),
+        other.north(),
+        other.east(),
+        other.south(),
+        other.west(),
+      ];
+
+      for (const point of pointsToCheck) {
+        const insideX = point.isBetweenX(this.bottomLeft, this.topRight);
+        const insideY = point.isBetweenY(this.bottomLeft, this.topRight);
+        if (!insideX || !insideY) {
+          return false;
+        }
+      }
+
+      return true;
+    }
+
     return false;
   }
 
