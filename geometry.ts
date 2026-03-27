@@ -10,6 +10,18 @@ export class Point2D {
     public y: number,
   ) {}
 
+  isBetweenX(p: Point2D, q: Point2D): boolean {
+    const minX = Math.min(p.x, q.x);
+    const maxX = Math.max(p.x, q.x);
+    return minX < this.x && this.x < maxX;
+  }
+
+  isBetweenY(p: Point2D, q: Point2D): boolean {
+    const minY = Math.min(p.y, q.y);
+    const maxY = Math.max(p.y, q.y);
+    return minY < this.y && this.y < maxY;
+  }
+
   distanceTo(other: Point2D): number {
     return Math.sqrt(
       Math.abs(this.x - other.x) ** 2 + Math.abs(this.y - other.y) ** 2,
