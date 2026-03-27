@@ -1,6 +1,7 @@
 export interface Shape {
   circumference(): number;
   area(): number;
+  encompasses(other: Shape): boolean;
 }
 
 export class Point2D {
@@ -30,6 +31,10 @@ export class Circle implements Shape {
     return Math.PI * this.radius ** 2;
   }
 
+  encompasses(_other: Shape): boolean {
+    return false;
+  }
+
   diameter(): number {
     return 2 * this.radius;
   }
@@ -47,6 +52,10 @@ export class Rectangle implements Shape {
 
   area(): number {
     return this.width() * this.height();
+  }
+
+  encompasses(_other: Shape): boolean {
+    return false;
   }
 
   diagonal(): number {
